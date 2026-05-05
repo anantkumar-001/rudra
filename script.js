@@ -16,15 +16,31 @@ document.addEventListener('DOMContentLoaded', () => {
      Mobile Menu Toggle
      ========================================================================== */
   const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+  const mobileCloseBtn = document.getElementById('mobile-close-btn');
   const navLinks = document.querySelector('.nav-links');
   
-  // Basic toggle just in case
-  if(mobileMenuBtn) {
-    mobileMenuBtn.addEventListener('click', () => {
-      // In a full implementation, you'd toggle a class on navLinks to show/hide
-      // For now, it's just a placeholder as per minimal requirements
-    });
+  const openMenu = () => {
+    navLinks.classList.add('mobile-open');
+    mobileCloseBtn.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeMenu = () => {
+    navLinks.classList.remove('mobile-open');
+    mobileCloseBtn.classList.remove('show');
+    document.body.style.overflow = '';
+  };
+
+  if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', openMenu);
   }
+  if (mobileCloseBtn) {
+    mobileCloseBtn.addEventListener('click', closeMenu);
+  }
+  // Close menu when a nav link is clicked
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
 
   /* ==========================================================================
      Scroll Animations (Intersection Observer)
@@ -146,70 +162,5 @@ document.addEventListener('DOMContentLoaded', () => {
     thumb.addEventListener('click', () => updateProductCarousel(idx));
   });
 
-  /* ==========================================================================
-     Testimonials Slider
-     ========================================================================== */
-  const testimonialsData = [
-    {
-      quote: "\"Before switching to Rudra Agro Mills' products, I used to worry about adulteration. Now, the mustard oil I get from GIRI is pure, aromatic, and my family loves it.\"",
-      name: "Priya S.",
-      role: "Homemaker, Jaipur"
-    },
-    {
-      quote: "\"The stone-ground wheat flour from Rudra Agro Mills makes the softest rotis. It reminds me of the authentic taste from my childhood village.\"",
-      name: "Ramesh T.",
-      role: "Restaurant Owner, Delhi"
-    },
-    {
-      quote: "\"As a nutritionist, I always recommend unpolished pulses. GIRI's premium pulses are exceptionally clean and retain their natural goodness.\"",
-      name: "Sunita K.",
-      role: "Nutritionist, Gurgaon"
-    },
-    {
-      quote: "\"We have been sourcing spices from Rudra Agro Mills for our wholesale business. The quality and aroma are unmatched in the market.\"",
-      name: "Mohanlal G.",
-      role: "Wholesale Buyer, Bhiwadi"
-    }
-  ];
-
-  let currentTestIndex = 0;
-  const testQuote = document.getElementById('test-quote');
-  const testCounter = document.getElementById('test-counter');
-  const avatarWraps = document.querySelectorAll('.avatar-wrap');
-  const prevTestBtn = document.getElementById('prev-test');
-  const nextTestBtn = document.getElementById('next-test');
-
-  const updateTestimonial = (index) => {
-    // Basic fade effect
-    testQuote.style.opacity = 0;
-    
-    setTimeout(() => {
-      testQuote.textContent = testimonialsData[index].quote;
-      testQuote.style.opacity = 1;
-    }, 300);
-
-    testCounter.textContent = `${index + 1}/4`;
-    
-    avatarWraps.forEach(a => a.classList.remove('active'));
-    avatarWraps[index].classList.add('active');
-    
-    currentTestIndex = index;
-  };
-
-  prevTestBtn.addEventListener('click', () => {
-    let newIndex = currentTestIndex - 1;
-    if (newIndex < 0) newIndex = testimonialsData.length - 1;
-    updateTestimonial(newIndex);
-  });
-
-  nextTestBtn.addEventListener('click', () => {
-    let newIndex = currentTestIndex + 1;
-    if (newIndex >= testimonialsData.length) newIndex = 0;
-    updateTestimonial(newIndex);
-  });
-
-  avatarWraps.forEach((wrap, idx) => {
-    wrap.addEventListener('click', () => updateTestimonial(idx));
-  });
 
 });
