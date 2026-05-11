@@ -22,36 +22,46 @@ document.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.querySelector(".navbar-nav");
 
   if (mobileMenuBtn && navLinks) {
+    const closeMobileMenu = () => {
+      mobileMenuBtn.classList.remove("active");
+      navLinks.classList.remove("active");
+      mobileMenuBtn.setAttribute("aria-expanded", "false");
+    };
+
     mobileMenuBtn.addEventListener("click", () => {
-      if (navLinks.style.display === "flex") {
-        navLinks.style.display = "";
-        navLinks.style.flexDirection = "";
-        navLinks.style.position = "";
-        navLinks.style.background = "";
-        navLinks.style.padding = "";
-        navLinks.style.top = "";
-        navLinks.style.left = "";
-        navLinks.style.width = "";
-        navLinks.style.boxShadow = "";
-      } else {
-        navLinks.style.display = "flex";
-        navLinks.style.flexDirection = "column";
-        navLinks.style.position = "absolute";
-        navLinks.style.background = "#FFFFFF";
-        navLinks.style.padding = "20px 0";
-        navLinks.style.top = "68px";
-        navLinks.style.left = "0";
-        navLinks.style.width = "100%";
-        navLinks.style.boxShadow = "0 10px 20px rgba(0,0,0,0.1)";
-      }
+      const isOpen = navLinks.classList.toggle("active");
+      mobileMenuBtn.classList.toggle("active", isOpen);
+      mobileMenuBtn.setAttribute("aria-expanded", String(isOpen));
     });
 
     navLinks.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
         if (window.innerWidth <= 768) {
-          navLinks.style.display = "";
+          closeMobileMenu();
         }
       });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (window.innerWidth > 768 || !navLinks.classList.contains("active")) {
+        return;
+      }
+
+      const clickTarget = event.target;
+      if (
+        clickTarget instanceof Node &&
+        !navbar.contains(clickTarget)
+      ) {
+        closeMobileMenu();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMobileMenu();
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768) closeMobileMenu();
     });
   }
 
