@@ -105,25 +105,39 @@ ul {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 .navbar-logo {
-  font-size: 28px;
-  font-weight: 900;
-  color: var(--red);
-  letter-spacing: -1px;
-  font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   text-decoration: none;
 }
-.navbar-logo span {
-  color: var(--amber);
-}
-.navbar-logo sub {
-  font-size: 9px;
-  font-style: normal;
-  font-weight: 500;
-  color: var(--muted);
-  vertical-align: bottom;
+.navbar-logo img {
   display: block;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 38%;
+  border: 2px solid rgba(245, 168, 0, 0.45);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+.brand-text {
+  display: flex;
+  flex-direction: column;
   line-height: 1;
+}
+.brand-text strong {
+  color: var(--red);
+  font-size: 28px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -1px;
+}
+.brand-text small {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--muted);
   letter-spacing: 0.5px;
+  text-transform: lowercase;
 }
 
 .navbar-nav {
@@ -826,11 +840,15 @@ ul {
   gap: 20px;
 }
 .footer-brand-logo {
-  font-size: 28px;
-  font-weight: 900;
-  color: var(--red);
-  font-style: italic;
-  line-height: 1;
+  display: block;
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 38%;
+  border: 3px solid rgba(245, 168, 0, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  margin-bottom: 10px;
 }
 .footer-parent {
   font-size: 28px;
